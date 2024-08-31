@@ -21,8 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-    res.render("doctor_dashboard.ejs", { userName: 'Mansur', userType: 'doctor'});
+app.get("/doctor_dash", (req, res) => {
+    res.render("doctor_dashboard.ejs", {
+        userName: 'Mansur', userType: 'doctor'});
 });
 
 app.get("/signin", (req, res) => {
