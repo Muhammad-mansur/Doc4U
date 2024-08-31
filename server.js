@@ -22,7 +22,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-    res.render("patient_dashboard.ejs", { userName: 'Mansur', userType: 'Doctor'});
+    res.render("doctor_dashboard.ejs", { userName: 'Mansur', userType: 'doctor'});
+});
+
+app.get("/signin", (req, res) => {
+    res.render("signin.ejs");
+});
+
+app.get("/signup", (req, res) => {
+    res.render("signup.ejs");
 });
 
 app.listen(port, () => {
