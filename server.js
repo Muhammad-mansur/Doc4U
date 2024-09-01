@@ -21,10 +21,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("public"));
 
-app.get("/doctor_dash", (req, res) => {
+app.get("/doctor_dashboard", (req, res) => {
     res.render("doctor_dashboard.ejs", {
         userName: 'Mansur', userType: 'doctor'});
 });
+
+import patientRoutes from './routes/patient.js'
+
+app.use("/patient_dashboard", patientRoutes);
 
 app.get("/signin", (req, res) => {
     res.render("signin.ejs");
