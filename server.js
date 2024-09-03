@@ -3,14 +3,18 @@ import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from 'url';
 
-import sequelize from "./db.js";
+// route import
+import doctorRoutes from './routes/doctor.js';
+import patientRoutes from './routes/patient.js';
+import authRoute from './routes/auth.js';
 
-// model import
+// db model import
+import sequelize from "./db.js";
 import User from "./models/user.js";
 import Doctor from "./models/doctor.js";
 import Patient from "./models/patient.js";
 import Appointment from "./models/appointment.js";
-import record from "./models/record.js";
+import MedicalRecord from "./models/record.js";
 
 sequelize.sync({ force: false })
     .then(() => {
@@ -19,9 +23,6 @@ sequelize.sync({ force: false })
     .catch(error => {
         console.err("Error syncing models with the database: ", error);
     });
-
-// route import
-import patientRoutes from './routes/patient.js';
 
 // Get the directory name of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -45,20 +46,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("public"));
 
-app.get("/doctor_dashboard", (req, res) => {
-    res.render("doctor_dashboard.ejs", {
-        userName: 'Mansur', userType: 'doctor'});
-});
-
-app.use("/patient_dashboard", patientRoutes);
-
-app.get("/signin", (req, res) => {
-    res.render("signin.ejs");
-});
-
-app.get("/signup", (req, res) => {
-    res.render("signup.ejs");
-});
+app.use("/", doctorRoutes);
+app.use("/", patientRoutes);
+app.use("/", authRoute);
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`);
