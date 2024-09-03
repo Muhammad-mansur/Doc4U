@@ -1,7 +1,8 @@
-import { DataTypes, Sequelize } from "sequelize";
-import User from "./user";
+import { DataTypes } from "sequelize";
+import sequelize from "../db.js";
+import User from "./user.js";
 
-const Patient = Sequelize.define('Patient', {
+const Patient = sequelize.define('Patient', {
     age: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -21,5 +22,6 @@ const Patient = Sequelize.define('Patient', {
     }
 });
 
-Patient.belongsto(User, { foreignKey: 'userId'});
+Patient.belongsTo(User, { foreignKey: 'userId'});
+
 export default Patient;

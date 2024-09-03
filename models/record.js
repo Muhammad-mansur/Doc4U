@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from './path_to_your_sequelize_instance';
-import Patient from "./patient";
-import Appointment from "./appointment";
+import sequelize from "../db.js";
+import Patient from "./patient.js";
+import Appointment from "./appointment.js";
 
 const MedicalRecord = sequelize.define('MedicalRecord', {
     diagnosis: {

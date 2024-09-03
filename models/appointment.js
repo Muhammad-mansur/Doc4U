@@ -1,8 +1,9 @@
-import { DataTypes, Sequelize } from "sequelize";
-import Doctor from "./doctor";
-import Patient from "./patient";
+import { DataTypes } from "sequelize";
+import sequelize from "../db.js";
+import Doctor from "./doctor.js";
+import Patient from "./patient.js";
 
-const Appointment = Sequelize.define('Appointment', {
+const Appointment = sequelize.define('Appointment', {
     appointmentDate: {
         type: DataTypes.DATE,
         allowNull: false
@@ -31,6 +32,7 @@ const Appointment = Sequelize.define('Appointment', {
     }
 });
 
-Appointment.belongsto(Doctor, { foreignKey: 'doctorId'});
+Appointment.belongsTo(Doctor, { foreignKey: 'doctorId'});
 Appointment.belongsTo(Patient, { foreignKey: 'patientId' });
+
 export default Appointment;
