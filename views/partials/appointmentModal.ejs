@@ -1,0 +1,18 @@
+<!-- Modal -->
+<div id="appointmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create Appointment</h2>
+        <form action="/create_appointment" method="POST">
+            <label for="appointmentDate">Appointment Date:</label>
+            <input type="datetime-local" id="appointmentDate" name="appointmentDate" required>
+
+            <label for="patientid">Patient ID:</label>
+            <input type="text" id="patientId" name="patientId" required>
+
+            <input type="hidden" name="doctorId" value="<%= user.id %>">
+
+            <button type="submit">Create Appointment</button>
+        </form>
+    </div>
+</div>

@@ -11,11 +11,11 @@ import authRoute from './routes/auth.js';
 
 // db model import
 import sequelize from "./db.js";
-import User from "./models/user.js";
-import Doctor from "./models/doctor.js";
-import Patient from "./models/patient.js";
-import Appointment from "./models/appointment.js";
-import MedicalRecord from "./models/record.js";
+// import User from "./models/user.js";
+// import Doctor from "./models/doctor.js";
+// import Patient from "./models/patient.js";
+// import Appointment from "./models/appointment.js";
+// import MedicalRecord from "./models/record.js";
 
 sequelize.sync({ force: false })
     .then(() => {
