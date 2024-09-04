@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from 'url';
+import session from "express-session";
 
 // route import
 import doctorRoutes from './routes/doctor.js';
@@ -30,6 +31,13 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
+
+app.use(session({
+    secret: 'mansur',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
 
 sequelize.authenticate()
     .then(() => console.log('Database connected...'))
