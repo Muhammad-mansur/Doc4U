@@ -1,0 +1,38 @@
+<!-- layout.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= user.role %> Dashboard</title>
+    <!-- Link to Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul>
+                <% if (user.role === 'doctor') { %>
+                    <li><a href="/doctor/dashboard" class="nav-item"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>  <!-- Updated path to /doctor/dashboard -->
+                    <li><a href="/doctor/appointments" class="nav-item"><i class="fas fa-calendar-alt"></i><span class="nav-label">Appointments</span></a></li>  <!-- Updated path to /doctor/appointments -->
+                    <li><a href="/doctor/account" class="nav-item"><i class="fas fa-user"></i><span class="nav-label">My Account</span></a></li>  <!-- Updated path to /doctor/account -->
+                <% } else if (user.role === 'patient') { %>
+                    <li><a href="/patient/dashboard" class="nav-item"><i class="fas fa-home"></i><span class="nav-label">Home</span></a></li>  <!-- Updated path to /patient/dashboard -->
+                    <li><a href="/patient/appointments" class="nav-item"><i class="fas fa-calendar-alt"></i><span class="nav-label">Appointments</span></a></li>  <!-- Updated path to /patient/appointments -->
+                    <li><a href="/patient/account" class="nav-item"><i class="fas fa-user"></i><span class="nav-label">My Account</span></a></li>  <!-- Updated path to /patient/account -->
+                <% } %>
+                <li><a href="/logout" class="nav-item"><i class="fas fa-sign-out-alt"></i><span class="nav-label">Logout</span></a></li>
+            </ul>
+        </nav>
+        
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Include the page-specific content here -->
+            <%- include(page) %>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!-- doctor_appointments.ejs -->
+<link rel="stylesheet" href="/styles/appointments.css">
+
+<h1>Your Appointments, Dr. <%= user.name %></h1>
+<p>Manage your upcoming appointments:</p>
+
+<!-- Upcoming Appointments Table -->
+<table class="appointments-table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (appointments && appointments.length > 0) { %>
+            <% appointments.forEach(appointment => { %>
+                <tr>
+                    <td><%= appointment.date %></td>
+                    <td><%= appointment.patientName %></td>
+                    <td><%= appointment.status %></td>
+                    <td><a href="/appointments/<%= appointment.id %>">View</a></td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="4" class="no-appointments">No upcoming appointments found.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<!-- Past Appointments Table -->
+<h2>Past Appointments</h2>
+<table class="appointments-table past-appointments-table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (pastAppointments && pastAppointments.length > 0) { %>
+            <% pastAppointments.forEach(appointment => { %>
+                <tr>
+                    <td><%= appointment.date %></td>
+                    <td><%= appointment.patientName %></td>
+                    <td><%= appointment.status %></td>
+                    <td><a href="/appointments/<%= appointment.id %>">View</a></td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="4" class="no-appointments">No past appointments found.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>

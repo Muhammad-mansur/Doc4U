@@ -43,9 +43,9 @@ router.post("/signin", async (req, res) => {
             });
         } else {
             if (user.role === 'patient') {
-                res.redirect("/patient_dashboard");
+                res.redirect("/patient/dashboard");
             } else if (user.role === 'doctor') {
-                res.redirect("/doctor_dashboard");
+                res.redirect("/doctor/dashboard");
             }
         }
     } catch (error) {
