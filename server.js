@@ -1,53 +1,52 @@
-import express from "express";
+import express from "express"; 
 import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from 'url';
-import session from "express-session";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
-// route import
+// Route imports
 import doctorRoutes from './routes/doctor.js';
 import patientRoutes from './routes/patient.js';
 import authRoute from './routes/auth.js';
 
-// db model import
+// Import database instance
 import sequelize from "./db.js";
 
-sequelize.sync({ force: false })
-    .then(() => {
-        console.log("Database and tables created successfully")
-    })
-    .catch(error => {
-        console.err("Error syncing models with the database: ", error);
-    });
+dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+// Initialize Express app
 const app = express();
 const port = 3000;
 
-app.use(session({
-    secret: 'mansur',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }
-}));
+app.use(express.json()); // Middleware to parse JSON requests
+app.use(cookieParser()); // Middleware to parse cookies
 
-sequelize.authenticate()
-    .then(() => console.log('Database connected...'))
-    .catch(err => console.log('Error: ' + err));
+// Sync database
+sequelize.sync({ force: false })
+    .then(() => {
+        console.log("Database and tables created successfully");
+    })
+    .catch(error => {
+        console.error("Error syncing models with the database: ", error);
+    });
 
+// Path setup for views and public files
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Middleware and route setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/doctor', doctorRoutes);  // Route prefix for doctor
-app.use('/patient', patientRoutes);  // Route prefix for patient
+// Use routes
+app.use('/doctor', doctorRoutes);
+app.use('/patient', patientRoutes);
 app.use("/", authRoute);
 
+// Start the server
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });

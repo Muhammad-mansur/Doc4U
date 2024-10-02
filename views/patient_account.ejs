@@ -1,4 +1,43 @@
-<!-- patient_account.ejs -->
-<h1>Account Settings</h1>
-<p>Manage your account details, <%= user.name %>.</p>
-<!-- Add form or account management details here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="/styles/create_patient_account.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Edit Profile</h1>
+        </header>
+        <main>
+            <form action="/patient/profile" method="POST" class="profile-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<%= user.name %>" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<%= user.email %>" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
+
+                <!-- Check if patient data is available -->
+                <% if (patient) { %>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" value="<%= patient.age %>" required>
+
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male" <%= patient.gender === 'male' ? 'selected' : '' %>>Male</option>
+                        <option value="female" <%= patient.gender === 'female' ? 'selected' : '' %>>Female</option>
+                        <option value="other" <%= patient.gender === 'other' ? 'selected' : '' %>>Other</option>
+                    </select>
+                <% } %>
+
+                <button type="submit" class="update-button">Update</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
